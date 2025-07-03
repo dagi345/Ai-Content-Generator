@@ -1,6 +1,11 @@
+"use client"
+
 import {FileClock, HomeIcon, Settings, WalletCards} from "lucide-react"
 import Image from 'next/image'
-import React from 'react'
+import Link from "next/link"
+
+import { usePathname } from "next/navigation"
+import React, { useEffect } from 'react'
 
 const SideNav = () => {
 
@@ -27,18 +32,26 @@ const SideNav = () => {
         }
     ]
 
+    const path = usePathname();
+    useEffect(()=>{
+        console.log(path)
+    }, [])
+
   return (
-    <div className='h-screen p-5 shadow-sm border'>
+    <div className='h-screen p-5 shadow-sm border bg-white'>
         <div className="logo flex gap-2 items-center justify-center border-b-2 pb-2"> 
             <Image src={"/logo.svg"} alt='logo'  width={80} height={80} />
             <h1 className='font-serif font-bold'>Content Ai</h1>
         </div>
-        <div className="">
+        <div className="my-10">
+            
             {MenuList.map((menu , index)=>(
-                <div className="flex gap-2 mb-2 p-3">
-                    <menu.icon/>
-                    <h2>{menu.name}</h2>
-                </div>
+                <Link href={menu.path}>
+                    <div key={index} className={`flex gap-2 mb-2 p-3 hover:bg-blue-600 hover:text-white rounded-lg cursor-pointer items-center ${path == menu.path && "bg-blue-600 text-white"}`}>
+                        <menu.icon className="h-6 w-6" />
+                        <h2 className="text-lg">{menu.name}</h2>
+                    </div>
+                </Link>
 
             ))}
         </div>
