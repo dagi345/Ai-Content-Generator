@@ -46,7 +46,7 @@ const SideNav = () => {
         <div className="my-10">
             
             {MenuList.map((menu , index)=>(
-                <Link href={menu.path}>
+                <Link href={menu.path} key={index}>
                     <div key={index} className={`flex gap-2 mb-2 p-3 hover:bg-blue-600 hover:text-white rounded-lg cursor-pointer items-center ${path == menu.path && "bg-blue-600 text-white"}`}>
                         <menu.icon className="h-6 w-6" />
                         <h2 className="text-lg">{menu.name}</h2>

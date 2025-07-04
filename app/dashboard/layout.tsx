@@ -1,6 +1,8 @@
 import React from 'react'
 import SideNav from './_components/SideNav';
 import Header from './_components/Header';
+import { Toaster } from 'sonner';
+
 
 const layout = ({
   children,
@@ -17,6 +19,7 @@ const layout = ({
         <div className='md:ml-64 '>
              <Header />
             {children}
+                <Toaster richColors />
             </div>
 
     </div>

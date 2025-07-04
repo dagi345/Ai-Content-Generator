@@ -6,14 +6,16 @@ import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Loader2Icon } from 'lucide-react';
 
 interface PROPS {
     selectedTemplate?: TEMPLATE
     userFormInput: any
+    loading :boolean
 }
 
 
-function FormSection({selectedTemplate , userFormInput}:PROPS) {
+function FormSection({selectedTemplate , userFormInput , loading}:PROPS) {
 
     const [FormData, setFormData] = useState<any>()
 
@@ -45,7 +47,7 @@ function FormSection({selectedTemplate , userFormInput}:PROPS) {
                 </div>
             ))}
 
-            <Button  type="submit"  className='bg-blue-600 hover:bg-blue-500 w-full py-6'> Generate content</Button>
+            <Button disabled={loading} type="submit"  className='bg-blue-600 hover:bg-blue-500 w-full py-6'> {loading ? <Loader2Icon className='animate-spin'/>: "Generate content"}</Button>
         </form>
     </div>
   )
