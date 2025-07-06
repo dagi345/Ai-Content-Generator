@@ -5,7 +5,7 @@ import Templates from '@/app/(data)/Templates';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import Image from 'next/image';
 import wordCount from 'word-count';
-import { Copy } from 'lucide-react';
+import { Copy, LoaderPinwheel, LoaderPinwheelIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -43,7 +43,9 @@ function History() {
   }, []);
 
   if (loading) {
-    return <div className="p-5">Loading...</div>;
+    return <div className="p-5 w-full h-screen items-center flex justify-center text-cente">
+      <LoaderPinwheelIcon  className='animate-spin'/> Loading...
+      </div>;
   }
 
   const copy = (n:any) =>{
@@ -55,42 +57,28 @@ function History() {
     <div className="p-5">
       <h2 className="text-2xl font-bold mb-5">Generation History</h2>
       <div className="p-5  shadow-md flex gap-2">
-                    <div className="flex items-center gap-2 basis-[25%] shrink-0">
-                        
+                    <div className="flex items-center gap-2 basis-[25%] shrink-0"> 
                         <span className="font-semibold">TEMPLATE</span>
                     </div>
-
                     <div className="line-clamp-2 basis-[25%] shrink-0">
                         <span className="font-semibold">AI RESPONSE</span>
                     </div>
-
                     <div className="basis-[20%] shrink-0">
                         <span className="font-semibold">DATE</span> 
                     </div>
-
                     <div className="basis-[5%] shrink-0">
                         <span className="font-semibold">WORDS</span> 
                     </div>
-
                     <div className="basis-[20%] shrink-0  flex justify-end">
                         <span>COPY</span>
                     </div>
-
-                    
                 </div>
       <div className="grid gap-5 ">
         {historyData.map((item) => {
           const result = Templates?.find((t) => t.slug === item.templateSlug);
 
           return (
-            
-         
-
-
-            
-                
-
-              <div key={item.id} className="bg-white p-5 rounded-lg shadow-md flex gap-2">
+             <div key={item.id} className="bg-white p-5 rounded-lg shadow-md flex gap-2">
                     <div className="flex items-center gap-2 basis-[25%] shrink-0">
                         {result?.icon && (
                             <Image src={result.icon} alt="icon" width={50} height={50} />
@@ -116,8 +104,6 @@ function History() {
                         </Button>
                     </div>
                 </div>
-
-            
           );
         })}
       </div>

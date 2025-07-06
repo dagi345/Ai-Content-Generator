@@ -11,6 +11,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
 import { useRouter } from 'next/navigation'
+import { UpdateUsage } from '@/app/(context)/UpdateUsage'
 
 interface PROPS {
     params: {
@@ -24,6 +25,7 @@ function CreateNewContent(props: PROPS) {
     const [aiOutput, setaiOutput] = useState<string>('');
     const { isLoaded, isSignedIn, user } = useUser();
     const {TotalUsage, setTotalUsage} = useContext(TotalUsageContext)
+    const {UpdateCreditUsage, setUpdateCreditUsage} = useContext(UpdateUsage)
     const router= useRouter();
 
     if (!selectedTemplate) {
@@ -62,6 +64,7 @@ function CreateNewContent(props: PROPS) {
             console.error('Fetch failed:', err);
         }
 
+        setUpdateCreditUsage(Date.now())
         setLoading(false);
     };
     

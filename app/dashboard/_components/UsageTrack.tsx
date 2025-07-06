@@ -1,6 +1,7 @@
 "use client"
 
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
+import { UpdateUsage } from '@/app/(context)/UpdateUsage'
 import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext'
 import { Button } from '@/components/ui/button'
 
@@ -11,6 +12,7 @@ import React, { useContext, useEffect, useState } from 'react'
     const [responseData, setresponseData] = useState<{ airesponse: string }[]>([])
     const {TotalUsage, setTotalUsage} = useContext(TotalUsageContext)
     const {userSubscription, setuserSubscription} = useContext(UserSubscriptionContext)
+    const {UpdateCreditUsage, setUpdateCreditUsage} = useContext(UpdateUsage)
     
     const [credits, setcredits] = useState(0)
 
@@ -31,6 +33,25 @@ import React, { useContext, useEffect, useState } from 'react'
     IsUserSubscribed()
 
     }, [])
+
+    const getWords = async () => {
+        try {
+            const response = await fetch('/api/getWords');
+            const data = await response.json();
+            setresponseData(data.data)
+            console.log(data); //Log or do something with data
+
+        } catch (error) {
+            console.error('Failed to fetch word count:', error);
+        }
+    };
+     
+    
+
+    useEffect(() => {
+        getWords()
+    }, [UpdateCreditUsage])
+    
     
 
      useEffect(() => {
