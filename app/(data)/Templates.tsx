@@ -120,6 +120,80 @@ export default [
       }
     ]
   },
+
+  {
+    "name": "GitHub README Generator",
+    "desc": "Creates a professional, well-structured README.md file for your code repositories.",
+    "catagory": "Developer",
+    "icon": "/github_readme.png",
+    "slug": "github-readme-generator",
+    "aiPrompt": "**Role**: You are a senior software engineer and technical writer expert in creating high-quality GitHub README.md files.\n\n**Instruction**: Generate a complete, well-structured README in Markdown format using the provided project details. Format sections with proper headings, subheadings, and Markdown syntax. Do not include extra explanations. Only return the final formatted README content.\n\n**Context**: The user wants to publish a project and needs a professional README that includes: a project overview, installation steps, usage examples, license, and contribution guidelines. Your README should be clear, clean, and structured like a real-world open-source project.\n\n**Example**:\n# Project Title\n\nBadges (placeholders)\n\n## Description\nShort summary here.\n\n## Installation\n```bash\nnpm install project-name\n```\n\n## Usage\n```bash\nnpm start\n```\n\n## Contributing\n...\n\n## License\nMIT",
+    "form": [
+      {
+        "label": "Project Name (e.g., Weather App, Portfolio Website)",
+        "field": "input",
+        "name": "projectName",
+        "required": true
+      },
+      {
+        "label": "Project Description (One sentence summary, e.g., 'A simple weather forecast app built with React.')",
+        "field": "input",
+        "name": "description",
+        "required": true
+      },
+      {
+        "label": "Installation Instructions (e.g., 'npm install', or any steps to set up the project)",
+        "field": "Textarea",
+        "name": "installation",
+        "required": true
+      },
+      {
+        "label": "Usage Instructions or Example (e.g., code snippets or CLI commands to run your project)",
+        "field": "Textarea",
+        "name": "usage",
+        "required": true
+      },
+      {
+        "label": "License (Choose how others can use your code — e.g., MIT for open use, Apache 2.0 for protection)",
+        "field": "input",
+        "name": "license",
+        "defaultValue": "MIT"
+      }
+    ]
+  },
+  {
+    "name": "AI Prompt Enhancer (RICE)",
+    "desc": "Refines your simple ideas into powerful, structured AI prompts using the RICE framework.",
+    "catagory": "Productivity",
+    "icon": "/prompt_enhancer.png",
+    "slug": "ai-prompt-enhancer",
+    "aiPrompt": "**Role**: You are a top-tier prompt engineer.\n\n**Instruction**: Take the user's vague or simple idea and rewrite it as a powerful prompt using the RICE framework: Role, Instruction, Context, Example. The prompt should be ready for use in any advanced AI system. Return the final output in Markdown format, clearly labeled by section.\n\n**Context**: The user needs more effective responses from an AI model and their initial prompt lacks depth.\n\n**Example**:\n**Role**: You are a professional travel planner.\n\n**Instruction**: Create a 5-day travel itinerary for the specified city. Include food, cultural sights, and unique local experiences.\n\n**Context**: A family of four is traveling with two kids. Budget-conscious.\n\n**Example**: Day 1 - Visit Central Park and explore the Natural History Museum.\n\n---",
+    "form": [
+      {
+        "label": "Write your basic idea or prompt (e.g., 'Write me a poem about nature')",
+        "field": "Textarea",
+        "name": "prompt",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "Flash Card Questions Generator",
+    "desc": "Automatically creates question-and-answer flash cards from any block of text.",
+    "catagory": "Education",
+    "icon": "/flash_cards.png",
+    "slug": "flash-card-generator",
+    "aiPrompt": "**Role**: You are an expert educator and instructional designer.\n\n**Instruction**: Analyze the provided text and generate 10 clear question-and-answer flash card pairs. Focus on comprehension and concept recall. Format clearly as:\nQ1: ...\nA1: ...\nQ2: ...\nA2: ... and so on. Do not include extra explanations.\n\n**Context**: The user is preparing study material and wants accurate, concise questions that summarize the key points of the text.\n\n**Example**:\nQ1: What is photosynthesis?\nA1: The process by which green plants use sunlight to make food from carbon dioxide and water.",
+    "form": [
+      {
+        "label": "Paste the text, topic, or article you want to turn into flash cards (e.g., 'Photosynthesis is the process by which...')",
+        "field": "Textarea",
+        "name": "text",
+        "required": true
+      }
+    ]
+  }
+  ,
   {
     name: "Cover Letter Generator",
     desc: "Writes personalized cover letters based on job and resume details.",

@@ -8,9 +8,12 @@ const Header = () => {
   
   return (
     <div className="shadow-sm border-b-2 bg-white">
-        
         <div className="mt-3 ">
-          <div className="flex justify-end p-3"><UserButton /></div>
+          <div className="flex justify-end p-3 ">
+            <div style={{ transform: 'scale(1.5)' }} className='pr-5 border-red-50'>
+              <UserButton />
+            </div>
+          </div>
           {!userSubscription &&  <div className="">
             <h2 className='bg-blue-600 text-s text-white rounded-b-sm p-3'>join membership for just 9.99$/Month</h2>
           </div>}
