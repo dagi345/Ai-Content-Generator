@@ -6,6 +6,7 @@ import Link from "next/link"
 
 import { usePathname } from "next/navigation"
 import React, { useEffect } from 'react'
+import UsageTrack from "./UsageTrack"
 
 const SideNav = () => {
 
@@ -38,7 +39,7 @@ const SideNav = () => {
     }, [])
 
   return (
-    <div className='h-screen p-5 shadow-sm border bg-white'>
+    <div className='h-screen p-5 shadow-sm border bg-white relative'>
         <div className="logo flex gap-2 items-center justify-center border-b-2 pb-2"> 
             <Image src={"/logo.svg"} alt='logo'  width={80} height={80} />
             <h1 className='font-serif font-bold'>Content Ai</h1>
@@ -52,8 +53,11 @@ const SideNav = () => {
                         <h2 className="text-lg">{menu.name}</h2>
                     </div>
                 </Link>
-
             ))}
+        </div>
+
+        <div className="absolute bottom-10 left-0 w-full">
+            <UsageTrack/>
         </div>
     </div>
   )

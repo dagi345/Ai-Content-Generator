@@ -9,7 +9,7 @@ import { Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
-interface HistoryItem {
+export interface HistoryItem {
   id: number;
   formData: string;
   airesponse: string;
@@ -107,7 +107,7 @@ function History() {
                     </div>
 
                     <div className="basis-[5%] shrink-0">
-                        <span className="font-semibold"></span> {wordCount(item.airesponse)}
+                        <span className="font-semibold"></span> {item.airesponse.length}
                     </div>
 
                     <div className="basis-[20%] shrink-0  flex justify-end">

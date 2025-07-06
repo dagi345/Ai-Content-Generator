@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import OutputSection from '../_components/OutputSection'
 import FormSection from '../_components/FormSection'
 import { TEMPLATE } from '../../_components/TemplateListSection'
@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
+import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
+import { useRouter } from 'next/navigation'
 
 interface PROPS {
     params: {
@@ -21,6 +23,8 @@ function CreateNewContent(props: PROPS) {
     const [Loading, setLoading] = useState(false)
     const [aiOutput, setaiOutput] = useState<string>('');
     const { isLoaded, isSignedIn, user } = useUser();
+    const {TotalUsage, setTotalUsage} = useContext(TotalUsageContext)
+    const router= useRouter();
 
     if (!selectedTemplate) {
         return <div className="p-5 text-red-500">Template not found.</div>;
@@ -28,6 +32,10 @@ function CreateNewContent(props: PROPS) {
 
 
     const GenerateAiContent = async (formData: any) => {
+        if (TotalUsage >= 10000){
+            router.push('/dashboard/billing')
+        }
+
         setLoading(true);
 
         const selectedPrompt = selectedTemplate?.aiPrompt;
