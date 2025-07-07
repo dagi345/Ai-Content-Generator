@@ -78,6 +78,63 @@ export default [
       }
     ]
   },
+{
+    name: "LinkedIn Profile Optimizer",
+    desc: "Creates standout headlines and a compelling 'About' summary to attract clients and recruiters.",
+    catagory: "Career",
+    icon: "/linkedin.png",
+    aiPrompt: "You are an expert LinkedIn branding consultant and copywriter. Your task is to generate two things based on the user's details: 1) A set of standout LinkedIn headlines, and 2) A compelling LinkedIn 'About' section summary.\n\n**For the Headlines:**\n- Craft 3 distinct options.\n- Use vertical bars `|` to separate concepts for clarity and keyword density.\n- Ensure they are concise and reflect the user's expertise and value.\n\n**For the 'About' Summary:**\n- Write a professional, 3-paragraph summary.\n- Start with a strong hook that elaborates on the headline's core message.\n- Weave in the user's skills, industry, and any notable awards or clients to build a narrative of credibility.\n- Maintain the user's desired tone throughout.\n- Conclude with a clear call-to-action based on the user's goal (e.g., inviting connections, mentioning freelance availability, or openness to new roles).\n\n**Formatting Rules:**\n- Format the entire response in rich text (Markdown).\n- Use a bold heading for each section: **Headline Options** and **'About' Section Summary**.\n- Present the headlines as a numbered list.\n- This structure is mandatory. Respond only with the formatted result. Do not include any other explanations or introductions.",
+    slug: "linkedin-profile-optimizer",
+    form: [
+      {
+        label: "Your Current Role or Profession",
+        field: "input",
+        name: "role",
+        placeholder: "e.g., Digital Marketing Manager, Full-Stack Developer",
+        required: true
+      },
+      {
+        label: "Your Top 1-2 Skills or Services",
+        field: "input",
+        name: "skills",
+        placeholder: "e.g., SEO & Content Strategy, React & Node.js",
+        required: true
+      },
+      {
+        label: "Your Industry Keyword",
+        field: "input",
+        name: "industry",
+        placeholder: "e.g., SaaS, FinTech, eCommerce",
+        required: true
+      },
+      {
+        label: "Desired Tone",
+        field: "input",
+        name: "tone",
+        placeholder: "e.g., Professional, Approachable, Creative, Authoritative",
+        required: true
+      },
+      {
+        label: "What is your main goal on LinkedIn? (Optional)",
+        field: "input",
+        name: "goal",
+        placeholder: "e.g., Attract freelance clients, Find a new job"
+      },
+      {
+        label: "Notable Award or Recognition (Optional)",
+        field: "input",
+        name: "award",
+        placeholder: "e.g., Forbes 30 Under 30, Top Salesperson 2023"
+      },
+      {
+        label: "Big-Name Company You've Worked With (Optional)",
+        field: "input",
+        name: "client",
+        placeholder: "e.g., Google, Microsoft, Netflix"
+      }
+    ]
+  }
+  ,
   {
     name: "Instagram Caption Generator",
     desc: "Creates engaging captions for Instagram posts with emojis and hashtags.",
@@ -127,7 +184,7 @@ export default [
     "catagory": "Developer",
     "icon": "/github_readme.png",
     "slug": "github-readme-generator",
-    "aiPrompt": "**Role**: You are a senior software engineer and technical writer expert in creating high-quality GitHub README.md files.\n\n**Instruction**: Generate a complete, well-structured README in Markdown format using the provided project details. Format sections with proper headings, subheadings, and Markdown syntax. Do not include extra explanations. Only return the final formatted README content.\n\n**Context**: The user wants to publish a project and needs a professional README that includes: a project overview, installation steps, usage examples, license, and contribution guidelines. Your README should be clear, clean, and structured like a real-world open-source project.\n\n**Example**:\n# Project Title\n\nBadges (placeholders)\n\n## Description\nShort summary here.\n\n## Installation\n```bash\nnpm install project-name\n```\n\n## Usage\n```bash\nnpm start\n```\n\n## Contributing\n...\n\n## License\nMIT",
+    "aiPrompt": "**Role**: You are a senior software engineer and technical writer expert in creating high-quality GitHub README.md files.\n\n**Instruction**: Generate a complete, well-structured README in Markdown format using the provided project details. Format sections with proper headings, subheadings, and Markdown syntax. Do not include extra explanations. Only return the final formatted README content.\n\n**Context**: The user wants to publish a project and needs a professional README that includes: a project overview, installation steps, usage examples, license, and contribution guidelines. Your README should be clear, clean, and structured like a real-world open-source project.\n\n**Example**:\n# Project Title\n\nBadges (placeholders)\n\n## Description\nShort summary here.\n\n## Installation\n```bash\nnpm install project-name\n```\n\n## Usage\n```bash\nnpm start\n```\n\n## Contributing\n...\n\n## License\nMIT , Respond only with the result. Do not include explanations, introductions, or confirmations",
     "form": [
       {
         "label": "Project Name (e.g., Weather App, Portfolio Website)",
@@ -167,7 +224,7 @@ export default [
     "catagory": "Productivity",
     "icon": "/prompt_enhancer.png",
     "slug": "ai-prompt-enhancer",
-    "aiPrompt": "**Role**: You are a top-tier prompt engineer.\n\n**Instruction**: Take the user's vague or simple idea and rewrite it as a powerful prompt using the RICE framework: Role, Instruction, Context, Example. The prompt should be ready for use in any advanced AI system. Return the final output in Markdown format, clearly labeled by section.\n\n**Context**: The user needs more effective responses from an AI model and their initial prompt lacks depth.\n\n**Example**:\n**Role**: You are a professional travel planner.\n\n**Instruction**: Create a 5-day travel itinerary for the specified city. Include food, cultural sights, and unique local experiences.\n\n**Context**: A family of four is traveling with two kids. Budget-conscious.\n\n**Example**: Day 1 - Visit Central Park and explore the Natural History Museum.\n\n---",
+    "aiPrompt": "**Role**: You are a top-tier prompt engineer.\n\n**Instruction**: Take the user's vague or simple idea and rewrite it as a powerful prompt using the RICE framework: Role, Instruction, Context, Example. The prompt should be ready for use in any advanced AI system. Return the final output in Markdown format, clearly labeled by section.\n\n**Context**: The user needs more effective responses from an AI model and their initial prompt lacks depth.\n\n**Example**:\n**Role**: You are a professional travel planner.\n\n**Instruction**: Create a 5-day travel itinerary for the specified city. Include food, cultural sights, and unique local experiences.\n\n**Context**: A family of four is traveling with two kids. Budget-conscious.\n\n**Example**: Day 1 - Visit Central Park and explore the Natural History Museum.\n\n--- , Respond only with the result. Do not include explanations, introductions, or confirmations",
     "form": [
       {
         "label": "Write your basic idea or prompt (e.g., 'Write me a poem about nature')",
@@ -183,7 +240,7 @@ export default [
     "catagory": "Education",
     "icon": "/flash_cards.png",
     "slug": "flash-card-generator",
-    "aiPrompt": "**Role**: You are an expert educator and instructional designer.\n\n**Instruction**: Analyze the provided text and generate 10 clear question-and-answer flash card pairs. Focus on comprehension and concept recall. Format clearly as:\nQ1: ...\nA1: ...\nQ2: ...\nA2: ... and so on. Do not include extra explanations.\n\n**Context**: The user is preparing study material and wants accurate, concise questions that summarize the key points of the text.\n\n**Example**:\nQ1: What is photosynthesis?\nA1: The process by which green plants use sunlight to make food from carbon dioxide and water.",
+    "aiPrompt": "**Role**: You are an expert educator and instructional designer.\n\n**Instruction**: Analyze the provided text and generate 10 clear question-and-answer flash card pairs. Focus on comprehension and concept recall. Format clearly as:\nQ1: ...\nA1: ...\nQ2: ...\nA2: ... and so on. Do not include extra explanations.\n\n**Context**: The user is preparing study material and wants accurate, concise questions that summarize the key points of the text.\n\n**Example**:\nQ1: What is photosynthesis?\nA1: The process by which green plants use sunlight to make food from carbon dioxide and water. , Respond only with the result. Do not include explanations, introductions, or confirmations",
     "form": [
       {
         "label": "Paste the text, topic, or article you want to turn into flash cards (e.g., 'Photosynthesis is the process by which...')",

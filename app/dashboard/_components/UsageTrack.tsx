@@ -4,6 +4,7 @@ import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
 import { UpdateUsage } from '@/app/(context)/UpdateUsage'
 import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 
 import React, { useContext, useEffect, useState } from 'react'
@@ -114,7 +115,11 @@ import React, { useContext, useEffect, useState } from 'react'
             <h2 className='text-sm '>{TotalUsage.toLocaleString()}/{credits.toLocaleString()}Credits used</h2>
         </div>
 
+        <Link href={"/dashboard/billing"}>
+
         {!userSubscription && <Button variant={'secondary'} className='w-full my-3 border shadow-md cursor-pointer'> Upgrade </Button>}
+
+        </Link>
 
     </div>
   )

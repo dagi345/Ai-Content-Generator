@@ -41,7 +41,7 @@ function FormSection({selectedTemplate , userFormInput , loading}:PROPS) {
 
         <form action="" onSubmit={onsubmit}>
             {selectedTemplate?.form?.map((item , index)=>(
-                <div className="my-2 flex flex-col gap-2 mb-7">
+                <div className="my-2 flex flex-col gap-2 mb-7" key={index}>
                     <label htmlFor="">{item.label}</label>
                     {item.field == "input"? <Input name={item.name} required={item.required} onChange={handleInputChange}/> : item.field == "Textarea"? <Textarea name={item.name} required={item.required} onChange={handleInputChange}/> :null }
                 </div>

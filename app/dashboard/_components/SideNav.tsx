@@ -1,6 +1,6 @@
 "use client"
 
-import {FileClock, HomeIcon, Settings, WalletCards} from "lucide-react"
+import {FileClock, HomeIcon, Settings, Sparkles, WalletCards} from "lucide-react"
 import Image from 'next/image'
 import Link from "next/link"
 
@@ -41,8 +41,12 @@ const SideNav = () => {
   return (
     <div className='h-screen p-5 shadow-sm border bg-white relative'>
         <div className="logo flex gap-2 items-center justify-center border-b-2 pb-2"> 
-            <Image src={"/logo.svg"} alt='logo'  width={80} height={80} />
-            <h1 className='font-serif font-bold'>Content Ai</h1>
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
+                <Sparkles className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-semibold text-blue-900">ContentAI</span>
+            </Link>
         </div>
         <div className="my-10">
             

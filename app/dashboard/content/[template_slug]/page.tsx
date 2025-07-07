@@ -10,40 +10,56 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { UpdateUsage } from '@/app/(context)/UpdateUsage'
+import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext'
+import { toast } from 'sonner'
 
-interface PROPS {
-    params: {
-        'template_slug': string
-    }
-}
-
-function CreateNewContent(props: PROPS) {
-    const selectedTemplate: TEMPLATE | undefined = Templates?.find((item) => item.slug == props.params['template_slug']);
-    const [Loading, setLoading] = useState(false)
-    const [aiOutput, setaiOutput] = useState<string>('');
+function CreateNewContent() {
+    const params = useParams();
+    const templateSlug = params?.template_slug as string;
+    
+    const selectedTemplate: TEMPLATE | undefined = Templates?.find((item) => item.slug === templateSlug);
+    const [loading, setLoading] = useState(false);
+    const [aiOutput, setAiOutput] = useState<string>('');
     const { isLoaded, isSignedIn, user } = useUser();
-    const {TotalUsage, setTotalUsage} = useContext(TotalUsageContext)
-    const {UpdateCreditUsage, setUpdateCreditUsage} = useContext(UpdateUsage)
-    const router= useRouter();
+    const { TotalUsage } = useContext(TotalUsageContext);
+    const { setUpdateCreditUsage } = useContext(UpdateUsage);
+    const { userSubscription } = useContext(UserSubscriptionContext);
+    const router = useRouter();
 
     if (!selectedTemplate) {
-        return <div className="p-5 text-red-500">Template not found.</div>;
+        return (
+            <div className="p-5 flex flex-col items-center justify-center min-h-[50vh]">
+                <div className="text-red-500 font-medium mb-4">Template not found</div>
+                <Link href="/dashboard">
+                    <Button className="bg-blue-600 hover:bg-blue-500">
+                        <ArrowLeft className="mr-2" /> Return to Dashboard
+                    </Button>
+                </Link>
+            </div>
+        );
     }
 
-
     const GenerateAiContent = async (formData: any) => {
-        if (TotalUsage >= 10000){
-            router.push('/dashboard/billing')
+        // Check usage limit only for non-subscribed users
+        if (!userSubscription && TotalUsage >= 10000) {
+            toast.error("You've reached the free usage limit. Please upgrade to continue.");
+            router.push('/dashboard/billing');
+            return;
+        }
+
+        if (!isLoaded || !isSignedIn) {
+            toast.error("Please sign in to generate content");
+            return;
         }
 
         setLoading(true);
 
-        const selectedPrompt = selectedTemplate?.aiPrompt;
-        const FinalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;
-
         try {
+            const selectedPrompt = selectedTemplate?.aiPrompt;
+            const FinalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;
+
             const res = await fetch('/api/gemini', {
                 method: 'POST',
                 headers: {
@@ -55,23 +71,24 @@ function CreateNewContent(props: PROPS) {
             const data = await res.json();
 
             if (res.ok) {
-                setaiOutput(data.result);
+                setAiOutput(data.result);
                 await SaveIndb(formData, selectedTemplate.slug, data.result);
+                toast.success("Content generated successfully!");
             } else {
-                console.error('Backend error:', data.error);
+                throw new Error(data.error || 'Failed to generate content');
             }
         } catch (err) {
-            console.error('Fetch failed:', err);
+            const errorMessage = err instanceof Error ? err.message : 'Failed to generate content';
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+            setUpdateCreditUsage(Date.now());
         }
-
-        setUpdateCreditUsage(Date.now())
-        setLoading(false);
     };
-    
 
-    const SaveIndb = async (formData: any, slug: any, aiResponse: string) => {
+    const SaveIndb = async (formData: any, slug: string, aiResponse: string) => {
         if (!isLoaded || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) {
-            console.error('User not signed in or not loaded');
+            toast.error('Please sign in to save content');
             return;
         }
 
@@ -82,33 +99,37 @@ function CreateNewContent(props: PROPS) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    formData: formData,
+                    formData,
                     templateSlug: slug,
-                    aiResponse: aiResponse,
+                    aiResponse,
                     userEmail: user.primaryEmailAddress.emailAddress
                 }),
             });
-
-            console.log(res)
 
             const data = await res.json();
             if (!res.ok) {
                 throw new Error(data.error || 'Failed to save output');
             }
-
-            console.log('Saved successfully:', data);
         } catch (error) {
-            console.error('Failed to save nigaa:', error);
+            const errorMessage = error instanceof Error ? error.message : 'Failed to save output';
+            toast.error(errorMessage);
         }
     }
+
     return (
         <div className="py-5">
-            <Link href={'/dashboard'} className='p-5'>
-                <Button className='bg-blue-600 hover:bg-blue-500 cursor-pointer'> <ArrowLeft /> Back</Button>
+            <Link href="/dashboard" className="p-5">
+                <Button className="bg-blue-600 hover:bg-blue-500 cursor-pointer">
+                    <ArrowLeft /> Back
+                </Button>
             </Link>
 
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-5 p-5 bg-slate-100'>
-                <FormSection selectedTemplate={selectedTemplate} userFormInput={(v: any) => GenerateAiContent(v)} loading={Loading} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-5 bg-slate-100">
+                <FormSection 
+                    selectedTemplate={selectedTemplate} 
+                    userFormInput={GenerateAiContent} 
+                    loading={loading} 
+                />
                 <div className="col-span-2">
                     <OutputSection aiOutput={aiOutput} />
                 </div>
